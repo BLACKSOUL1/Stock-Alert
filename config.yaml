@@ -1,0 +1,72 @@
+# ----- Stock bot settings -----------------------------------------------------
+
+# How often to check each product (seconds), per product. With 12 products and 60 s,
+# the bot makes about 12 requests a minute. Going much faster risks an IP block.
+interval_seconds: 60
+
+# Random extra delay (0..N seconds) added to each check so it looks less robotic.
+jitter_seconds: 10
+
+# Also message you when an in-stock item sells out again?
+notify_when_sold_out_again: false
+
+# While an item stays in stock, repeat the alert every N minutes (0 = alert once only).
+# Hot Wheels can sell out fast, so keep nagging until you've bought it.
+repeat_alert_minutes: 4
+
+# Warn me on Telegram if a page can't be read this many checks in a row
+# (site blocking the bot, page moved, layout changed...).
+warn_after_failures: 3
+
+# Treat "pre-order" / "backorder" as in stock? (only used by generic detection, not FirstCry)
+preorder_counts_as_in_stock: true
+
+# ----- Products to watch ------------------------------------------------------
+# For firstcry.com the bot reads the live stock count from the page automatically.
+# Status when this list was made (25 Nov 2026, ~9:15 IST): everything sold out, except
+# the '68 Dodge Dart (1 left) and the Plymouth 'Cuda, which FirstCry lists as discontinued.
+# The bot will alert you about the Dodge Dart right after it starts if it is still in stock.
+products:
+  - name: "Nissan Skyline GT-R (BNR34) #199/250 - Black"
+    url: "https://www.firstcry.com/hot-wheels/hot-wheels-nissan-skyline-gt-rbnr34-die-cast-car-from-hw-j-importss-series-199-250-black/25045161/product-detail"
+
+  - name: "Batmobile (Batman Series) - Purple"
+    url: "https://www.firstcry.com/hot-wheels/hot-wheels-batmobile-batman-series-die-cast-model-purple/25045654/product-detail"
+
+  - name: "Porsche 911 Turbo Cabriolet - Silver/Black"
+    url: "https://www.firstcry.com/hot-wheels/hot-wheels-porsche-911-turbo-cabriolet-die-cast-car-silver-with-black/25045680/product-detail"
+
+  - name: "Porsche 908-3 Gulf Racing - Blue"
+    url: "https://www.firstcry.com/hot-wheels/hot-wheels-porsche-908-3-gulf-racing-die-cast-car-blue-livery/25045673/product-detail"
+
+  - name: "Corvette C7 Z06 (Night Speed) - White"
+    url: "https://www.firstcry.com/hot-wheels/hot-wheels-corvette-c7-z06-hw-night-speed-series-die-cast-model-white/25045657/product-detail"
+
+  - name: "'68 Dodge Dart - Dark Blue"
+    url: "https://www.firstcry.com/hot-wheels/hot-wheels-68-dodge-dart-die-cast-car-dark-blue/25045674/product-detail"
+
+  - name: "Porsche 911 GT3 RS - Cyan"
+    url: "https://www.firstcry.com/hot-wheels/hot-wheels-porsche-911-gt3-rs-die-cast-model-cyan/25045656/product-detail"
+
+  - name: "McLaren F1 (Fan Driven) - Royal Blue"
+    url: "https://www.firstcry.com/hot-wheels/hot-wheels-mclaren-f1hw-fan-driven-series-die-cast-mode-royal-blue/25045642/product-detail"
+
+  - name: "'64 Lincoln Continental #38/250 - Purple"
+    url: "https://www.firstcry.com/hot-wheels/hot-wheels-64-lincoln-continental-die-cast-model-best-in-class-series-38-250-purple/25045679/product-detail"
+
+  - name: "'15 Dodge Challenger SRT #24/250 - White"
+    url: "https://www.firstcry.com/hot-wheels/hot-wheels-15-dodge-challenger-srt-die-cast-car-speed-blur-series-24-250-white/25052396/product-detail"
+
+  - name: "Car Culture Team Transport '97 Porsche 911 GT3 (R992) + Fleet Flyer - Light Green"
+    url: "https://www.firstcry.com/hot-wheels/hot-wheels-car-culture-team-transport-97-porsche-911-gt3-r992-with-fleet-flyer-transport-truck-in-light-green/24854850/product-detail"
+
+  # FirstCry currently says this one is discontinued. Kept in case it gets relisted.
+  - name: "'70 Plymouth AAR 'Cuda #245/250 - Gold (listed as discontinued)"
+    url: "https://www.firstcry.com/hot-wheels/hot-wheels-70-plymouth-aar-cuda-245-250-toy-car-gold/24892560/product-detail"
+
+  # Other shops (not FirstCry): the bot tries to detect stock automatically.
+  # If it misreads a page, add rules (test with:  python stockbot.py --check "<url>"):
+  # - name: "Some other shop item"
+  #   url: "https://example.com/products/my-item"
+  #   in_stock_selector: "button#add-to-cart"          # exists only when in stock
+  #   # out_of_stock_text: ["sold out", "notify me"]   # text shown only when sold out
